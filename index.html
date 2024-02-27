@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jung X</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+
+    <script>
+        // Lấy canvas element
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+
+        // Thiết lập kích thước canvas
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Hàm vẽ vòng tròn ở vị trí ngẫu nhiên
+        function drawCircleAtPosition(x, y) {
+            var radius = Math.random() * 100 + 20; // Bán kính từ 20 đến 120
+
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = getRandomColor();
+            ctx.fill();
+        }  
+
+        // Hàm tạo màu ngẫu nhiên
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Hàm vẽ vòng tròn ngẫu nhiên sau mỗi 2 giây
+        function drawRandomCircle() {
+            var x = Math.random() * canvas.width;
+            var y = Math.random() * canvas.height;
+            drawCircleAtPosition(x, y);
+        }
+
+        // Sự kiện click chuột để vẽ vòng tròn mới
+        canvas.addEventListener('click', function (event) {
+            var rect = canvas.getBoundingClientRect();
+            var mouseX = event.clientX - rect.left;
+            var mouseY = event.clientY - rect.top;
+            drawCircleAtPosition(mouseX, mouseY);
+        });
+
+        // Vẽ vòng tròn ngẫu nhiên sau mỗi 2 giây
+        setInterval(drawRandomCircle, 2000);
+    </script>
+</body>
+
+</html>
